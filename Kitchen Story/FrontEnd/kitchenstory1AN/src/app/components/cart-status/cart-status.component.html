@@ -1,0 +1,21 @@
+<div class="row">
+    <div class="cart-area d-n">
+
+        <a routerLink="/admin-login">
+
+            <div class="au-btn-submit-2">
+                <span> Admin-Login </span>
+            </div>
+
+        </a>
+
+        <a routerLink="/cart-details">
+            <div class="total">{{totalPrice | currency : "EUR"}}
+                <span>{{totalQuantity}}</span>
+            </div>
+            <i class="fa fa-shopping-cart"></i>
+        </a>
+
+    </div>
+
+</div>

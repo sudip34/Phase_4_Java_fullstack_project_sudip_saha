@@ -1,0 +1,18 @@
+<div class="main-content page-m">
+
+    <div class="container">
+        <div class="div1">
+            <p><label class="label-login">Login</label></p>
+            <div>
+                <p>{{message}}</p>
+                Admin Name : <input type="text" class="input-name" name="adminName1" [(ngModel)]="adminName1">
+                Password : <input type="password" class="input-password" name="password" [(ngModel)]="password">
+            </div>
+            <button (click)=checkLogin() class="btn btn-success">
+                Login
+            </button>
+            <P>Double click on Login button</P>
+        </div>
+    </div>
+
+</div>

@@ -1,0 +1,219 @@
+<div class="main-content">
+    <div class="section-content section-content-p30">
+        <div class="container-fluid">
+
+            <div class="container">
+                <div class="top-corner">
+                    <p><button class="btn btn-primary" (click)="logout()">Logout</button></p>
+                </div>
+            </div>
+            <div class="container">
+                <div class="left-corner">
+                    <a routerLink="/reset-password" class="btn btn-primary">Password Reset</a>
+                </div>
+            </div>
+
+            <div class="row">
+                <table class="table table-hover table-bordered">
+                    <thead>
+                        <tr>
+                            <th scope="col">id</th>
+                            <th scope="col">sku</th>
+                            <th scope="col">name</th>
+                            <th scope="col">description</th>
+                            <th scope="col">unitPrice</th>
+                            <th scope="col">imageUrl</th>
+                            <th scope="col">active</th>
+                            <th scope="col">unitsInStock</th>
+                            <th scope="col">dateCreated</th>
+                            <th scope="col">lastUpdated</th>
+                            <th scope="col">Action</th>
+                            <th scope="col">Action</th>
+
+                        </tr>
+                    </thead>
+                    <tbody>
+                        <tr *ngFor="let tempProduct of products">
+                            <th scope="row">{{tempProduct.id}}</th>
+                            <td class="align-middle">{{tempProduct.sku}}</td>
+                            <td class="align-middle">{{tempProduct.name}}</td>
+                            <td class="align-middle">{{tempProduct.description}}</td>
+                            <td class="align-middle">{{tempProduct.unitPrice}}</td>
+                            <td class="align-middle">{{tempProduct.imageUrl}}</td>
+                            <td class="align-middle">{{tempProduct.active}}</td>
+                            <td class="align-middle">{{tempProduct.unitsInStock}}</td>
+                            <td class="align-middle">{{tempProduct.dateCreated}}</td>
+                            <td class="align-middle">{{tempProduct.lastUpdated}}</td>
+                            <td><button (click)="edit(tempProduct)" class="btn btn-info" data-bs-toggle="modal"
+                                    data-bs-target="#exampleModal">edit</button></td>
+                            <td><button (click)="getDeleted(tempProduct)" class="myButton">Delete</button></td>
+
+                        </tr>
+                    </tbody>
+
+                </table>
+
+                <!-- loop over the collection of products -->
+
+            </div>
+
+        </div>
+
+    </div>
+
+    <div class="container">
+        <div class="horizontal-center">
+            <P><button class="btn btn-primary" (click)="addProduct(product)" data-bs-toggle="modal"
+                    data-bs-target="#addModal">Add Product</button></P>
+        </div>
+    </div>
+    <!--Add logout() which will use the method "logout()" from loginservice" -->
+
+</div>
+
+
+<!-- Modal for Add -->
+
+<div class="modal fade" id="addModal" tabindex="-1" aria-labelledby="addModalLabel" aria-hidden="true">
+    <div class="modal-dialog">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h5 class="modal-title" id="addModalLabel">Add Product</h5>
+                <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+            </div>
+            <div class="modal-body">
+
+
+
+                <form #formTokenAdd="ngForm" (ngSubmit)="add(formTokenAdd)">
+
+                    <!-- <div class="form-group">
+                        <label for="id">Sku</label>
+                        <input type="text" #id [(ngModel)]="productsToUpdate.id" name="id" id="id"
+                            class="form-control" placeholder="Product id">
+                    </div> -->
+
+                    <div class="form-group">
+                        <label for="sku">Sku</label>
+                        <input type="text" #sku [(ngModel)]="productsToUpdate.sku" name="sku" id="sku"
+                            class="form-control" placeholder="Product sku">
+                    </div>
+
+                    <div class="form-group">
+                        <label for="name">Name</label>
+                        <input type="text" #name [(ngModel)]="productsToUpdate.name" name="name" id="name"
+                            class="form-control" placeholder="Product name">
+                    </div>
+
+                    <div class="form-group">
+                        <label for="description">Description</label>
+                        <input type="text" #description [(ngModel)]="productsToUpdate.description" name="description"
+                            id="description" class="form-control" placeholder="Product description">
+                    </div>
+
+                    <div class="form-group">
+                        <label for="unitPrice">Unit Price</label>
+                        <input type="text" #unitPrice [(ngModel)]="productsToUpdate.unitPrice" name="unitPrice"
+                            id="unitPrice" class="form-control" placeholder="Product unit price">
+                    </div>
+
+                    <div class="form-group">
+                        <label for="imageUrl">Image Url</label>
+                        <input type="text" #imageUrl [(ngModel)]="productsToUpdate.imageUrl" name="imageUrl"
+                            id="imageUrl" class="form-control" placeholder="Product image url">
+                    </div>
+                    <div class="form-group">
+                        <label for="active">Description</label>
+                        <input type="text" #active [(ngModel)]="productsToUpdate.active" name="active" id="active"
+                            class="form-control" placeholder="Product active">
+                    </div>
+
+                    <div class="form-group">
+                        <label for="unitsInStock">Stocks</label>
+                        <input type="text" #unitsInStock [(ngModel)]="productsToUpdate.unitsInStock" name="unitsInStock"
+                            id="unitsInStock" class="form-control" placeholder="Product unitsInStock">
+                    </div>
+
+
+                    <button class="btn btn-primary">Add</button>
+
+                </form>
+
+
+
+            </div>
+
+        </div>
+    </div>
+</div>
+
+
+<!-- Modal for Update -->
+<div class="modal fade" id="exampleModal" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
+    <div class="modal-dialog">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h5 class="modal-title" id="exampleModalLabel">Update Product</h5>
+                <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+            </div>
+            <div class="modal-body">
+
+                <form #formToken="ngForm" (ngSubmit)="update(formToken)">
+
+                    <div class="form-group">
+                        <label for="id">Sku</label>
+                        <input type="text" #id [(ngModel)]="productsToUpdate.id" name="id" id="id" class="form-control"
+                            placeholder="Product id">
+                    </div>
+
+                    <div class="form-group">
+                        <label for="sku">Sku</label>
+                        <input type="text" #sku [(ngModel)]="productsToUpdate.sku" name="sku" id="sku"
+                            class="form-control" placeholder="Product sku">
+                    </div>
+
+                    <div class="form-group">
+                        <label for="name">Name</label>
+                        <input type="text" #name [(ngModel)]="productsToUpdate.name" name="name" id="name"
+                            class="form-control" placeholder="Product name">
+                    </div>
+
+                    <div class="form-group">
+                        <label for="description">Description</label>
+                        <input type="text" #description [(ngModel)]="productsToUpdate.description" name="description"
+                            id="description" class="form-control" placeholder="Product description">
+                    </div>
+
+                    <div class="form-group">
+                        <label for="unitPrice">Unit Price</label>
+                        <input type="text" #unitPrice [(ngModel)]="productsToUpdate.unitPrice" name="unitPrice"
+                            id="unitPrice" class="form-control" placeholder="Product unit price">
+                    </div>
+
+                    <div class="form-group">
+                        <label for="imageUrl">Image Url</label>
+                        <input type="text" #imageUrl [(ngModel)]="productsToUpdate.imageUrl" name="imageUrl"
+                            id="imageUrl" class="form-control" placeholder="Product image url">
+                    </div>
+                    <div class="form-group">
+                        <label for="active">Description</label>
+                        <input type="text" #active [(ngModel)]="productsToUpdate.active" name="active" id="active"
+                            class="form-control" placeholder="Product active">
+                    </div>
+
+                    <div class="form-group">
+                        <label for="unitsInStock">Stocks</label>
+                        <input type="text" #unitsInStock [(ngModel)]="productsToUpdate.unitsInStock" name="unitsInStock"
+                            id="unitsInStock" class="form-control" placeholder="Product unitsInStock">
+                    </div>
+
+
+                    <button class="btn btn-primary">Update</button>
+
+                </form>
+
+            </div>
+
+        </div>
+    </div>
+</div>
